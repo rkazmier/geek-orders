@@ -1,0 +1,103 @@
+@if (store.loading()) {
+  <p class="status">Ładowanie danych…</p>
+} @else if (store.error()) {
+  <p class="status status--error">{{ store.error() }}</p>
+} @else if (store.groups().length === 0) {
+  <p class="status">Brak otwartych zleceń.</p>
+} @else {
+  <div class="table-wrapper">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th class="col-symbol">Symbol</th>
+          <th>Order ID</th>
+          <th>Side</th>
+          <th class="num">Size</th>
+          <th>Open Time</th>
+          <th class="num">Open Price</th>
+          <th class="num">Swap</th>
+          <th class="num">Profit</th>
+          <th class="col-actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (group of store.groups(); track group.symbol) {
+          <tr
+            class="group-row"
+            [class.group-row--expanded]="isExpanded(group.symbol)"
+            (click)="toggleGroup(group.symbol)"
+          >
+            <td class="col-symbol">
+              <span class="chevron" [class.chevron--open]="isExpanded(group.symbol)">›</span>
+              {{ group.symbol }}
+              <span class="badge">{{ group.count }}</span>
+            </td>
+            <td></td>
+            <td></td>
+            <td class="num">{{ group.totalSize | number: '1.0-2' }}</td>
+            <td></td>
+            <td class="num">{{ group.avgOpenPrice | number: '1.2-5' }}</td>
+            <td class="num">{{ group.totalSwap | number: '1.2-2' }}</td>
+            <td
+              class="num profit"
+              [class.profit--positive]="(group.totalProfit ?? 0) > 0"
+              [class.profit--negative]="(group.totalProfit ?? 0) < 0"
+            >
+              @if (group.totalProfit !== null) {
+                {{ group.totalProfit | number: '1.2-2' }}
+              } @else {
+                —
+              }
+            </td>
+            <td class="col-actions">
+              <button
+                type="button"
+                class="close-button"
+                (click)="closeGroup(group.symbol, $event)"
+                [attr.aria-label]="'Zamknij grupę zleceń ' + group.symbol"
+                title="Zamknij grupę zleceń"
+              >
+                ✕
+              </button>
+            </td>
+          </tr>
+          @if (isExpanded(group.symbol)) {
+            @for (order of group.orders; track order.id) {
+              <tr class="order-row">
+                <td class="col-symbol order-row__symbol">{{ order.symbol }}</td>
+                <td>{{ order.id }}</td>
+                <td>{{ order.side }}</td>
+                <td class="num">{{ order.size | number: '1.0-2' }}</td>
+                <td>{{ order.openTime | date: 'dd.MM.yyyy HH:mm:ss' }}</td>
+                <td class="num">{{ order.openPrice | number: '1.2-5' }}</td>
+                <td class="num">{{ order.swap | number: '1.2-2' }}</td>
+                <td
+                  class="num profit"
+                  [class.profit--positive]="(order.profit ?? 0) > 0"
+                  [class.profit--negative]="(order.profit ?? 0) < 0"
+                >
+                  @if (order.profit !== null) {
+                    {{ order.profit | number: '1.2-2' }}
+                  } @else {
+                    —
+                  }
+                </td>
+                <td class="col-actions">
+                  <button
+                    type="button"
+                    class="close-button"
+                    (click)="closeOrder(order.id, $event)"
+                    [attr.aria-label]="'Zamknij zlecenie nr ' + order.id"
+                    title="Zamknij zlecenie"
+                  >
+                    ✕
+                  </button>
+                </td>
+              </tr>
+            }
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+}

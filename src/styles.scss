@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+// Include theming for Angular Material with `mat.theme()` (used by MatSnackBar).
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+// Application color palette (light theme - default).
+:root,
+:root[data-theme='light'] {
+  --bg: rgb(233, 237, 241);
+  --text: rgb(14, 15, 26);
+  --row-bg: rgb(220, 225, 229);
+  --row-hover: rgb(201, 209, 216);
+  --profit-positive: rgb(60, 193, 149);
+  --profit-negative: rgb(249, 76, 76);
+}
+
+// Dark theme palette.
+:root[data-theme='dark'] {
+  --bg: rgb(42, 56, 71);
+  --text: rgb(198, 210, 219);
+  --row-bg: rgba(14, 15, 26, 0.25);
+  --row-hover: rgba(53, 71, 89, 0.5);
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: var(--bg);
+  color: var(--text);
+  font: var(--mat-sys-body-medium);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}

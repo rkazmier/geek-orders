@@ -1,0 +1,38 @@
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+.theme-toggle {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--row-hover);
+  border-radius: 6px;
+  background-color: var(--row-bg);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--row-hover);
+  }
+}

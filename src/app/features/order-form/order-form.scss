@@ -1,0 +1,99 @@
+:host {
+  display: block;
+}
+
+.order-form {
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  background-color: var(--row-bg);
+
+  &__title {
+    margin: 0 0 0.8rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+  }
+
+  &__fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  &__submit {
+    align-self: flex-end;
+    padding: 0.55rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--profit-positive);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 9rem;
+
+  &__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+
+  input,
+  select {
+    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--row-hover);
+    border-radius: 6px;
+    background-color: var(--bg);
+    color: var(--text);
+    font: inherit;
+  }
+
+  &__with-action {
+    display: flex;
+    gap: 0.3rem;
+
+    input {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__action {
+    padding: 0 0.6rem;
+    border: 1px solid var(--row-hover);
+    border-radius: 6px;
+    background-color: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    font-size: 0.75rem;
+    color: var(--profit-negative);
+  }
+}
